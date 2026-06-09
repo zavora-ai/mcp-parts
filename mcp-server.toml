@@ -1,0 +1,200 @@
+server_id = "mcp_parts"
+display_name = "Parts & Spares"
+version = "1.0.0"
+domain = "automotive"
+sdk_version = "0.1.0"
+risk_level = "high"
+writes_allowed = "gated"
+transports = ["stdio"]
+credentials = []
+governance_gates = []
+environments = ["development", "staging", "production"]
+
+[[tools]]
+name = "create_part"
+description = "Create a part in the catalog"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "get_part"
+description = "Get a part by id or part number"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_parts"
+description = "List parts by category/status"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "create_location"
+description = "Create a stocking location"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_locations"
+description = "List stocking locations"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "create_supplier"
+description = "Create a supplier"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_suppliers"
+description = "List suppliers"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "set_stock_policy"
+description = "Set reorder point + reorder qty for a part at a location"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "get_stock"
+description = "Get stock of a part at a location"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "stock_for_part"
+description = "Stock across locations + total available"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "receive_stock"
+description = "Receive stock into a location"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "issue_stock"
+description = "Issue/consume stock (physical) — gated"
+risk_class = "external_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "transfer_stock"
+description = "Transfer stock between locations"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "adjust_stock"
+description = "Adjust stock by signed delta (override) — gated"
+risk_class = "external_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "movements_for_part"
+description = "Recent stock movements for a part"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "reserve_stock"
+description = "Reserve available stock against a reference"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "cancel_reservation"
+description = "Cancel a reservation, releasing reserved qty"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_reservations"
+description = "List reservations by part/status"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "add_bom_line"
+description = "Add a BOM line (parent built from child); rejects cycles"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "explode_bom"
+description = "Explode a BOM into total component quantities"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "where_used"
+description = "Assemblies that consume a given part"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "add_supersession"
+description = "Record one part superseding another"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "resolve_supersession"
+description = "Resolve supersession chain to current replacement"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "reorder_suggestions"
+description = "Stock at/below reorder point with suggested order qty"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "record_usage"
+description = "Record a usage/consumption event for forecasting"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "forecast_demand"
+description = "Usage-based demand forecast + reorder point + stockout risk"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "audit_log"
+description = "Recent stock/operations audit-trail entries"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
