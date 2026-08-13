@@ -1,6 +1,6 @@
 server_id = "mcp_parts"
 display_name = "Parts"
-version = "1.0.0"
+version = "1.1.0"
 domain = "automotive"
 sdk_version = "0.2.0"
 risk_level = "high"

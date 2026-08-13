@@ -91,7 +91,7 @@ cd mcp-parts && cargo build --release
 ```toml
 server_id = "mcp_parts"
 display_name = "Parts & Spares"
-version = "1.0.0"
+version = "1.1.0"
 domain = "automotive"
 risk_level = "high"
 writes_allowed = "gated"
