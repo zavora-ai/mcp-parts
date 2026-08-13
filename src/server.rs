@@ -90,7 +90,7 @@ pub struct EmptyInput {}
 #[derive(Clone)]
 pub struct PartsServer { pub store: Arc<PartsStore> }
 
-#[tool_router(server_handler)]
+#[tool_router]
 impl PartsServer {
     // catalog
     #[tool(description = "Create a part in the catalog.")]
@@ -265,4 +265,11 @@ impl HealthCheck for PartsServer {
     async fn check_health(&self) -> HealthStatus {
         HealthStatus { healthy: true, message: Some("operational".into()), latency_ms: Some(1) }
     }
+}
+
+adk_mcp_sdk::mcp_2026_server! {
+    server: PartsServer,
+    task_tools: ["forecast_demand"],
+    approval_tools: ["issue_stock", "adjust_stock"],
+    cache_ttl_ms: 60_000,
 }
