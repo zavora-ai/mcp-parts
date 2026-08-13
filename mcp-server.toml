@@ -1,200 +1,200 @@
 server_id = "mcp_parts"
-display_name = "Parts & Spares"
+display_name = "Parts"
 version = "1.0.0"
 domain = "automotive"
-sdk_version = "0.1.0"
+sdk_version = "0.2.0"
 risk_level = "high"
 writes_allowed = "gated"
 transports = ["stdio"]
 credentials = []
-governance_gates = []
+governance_gates = ["mrtr_approval"]
 environments = ["development", "staging", "production"]
 
 [[tools]]
 name = "create_part"
-description = "Create a part in the catalog"
+description = "Create a part in the catalog."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "get_part"
-description = "Get a part by id or part number"
+description = "Get a part by id or part number."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_parts"
-description = "List parts by category/status"
+description = "List parts, optionally by category and/or status."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "create_location"
-description = "Create a stocking location"
+description = "Create a stocking location (warehouse/depot/van/line-side/service-center)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_locations"
-description = "List stocking locations"
+description = "List stocking locations."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "create_supplier"
-description = "Create a supplier"
+description = "Create a supplier."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_suppliers"
-description = "List suppliers"
+description = "List suppliers."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "set_stock_policy"
-description = "Set reorder point + reorder qty for a part at a location"
+description = "Set the reorder policy (reorder point + reorder qty) for a part at a location."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "get_stock"
-description = "Get stock of a part at a location"
+description = "Get stock of a part at a location (on hand, reserved, policy)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "stock_for_part"
-description = "Stock across locations + total available"
+description = "Stock of a part across all locations, plus total available (on hand minus reserved)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "receive_stock"
-description = "Receive stock into a location"
+description = "Receive stock into a location (purchase/return)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "issue_stock"
-description = "Issue/consume stock (physical) — gated"
+description = "Issue (consume/install) stock from a location. Refuses to oversell available stock. Records usage for forecasting. External write — gated."
 risk_class = "external_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "transfer_stock"
-description = "Transfer stock between locations"
+description = "Transfer stock between locations."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "adjust_stock"
-description = "Adjust stock by signed delta (override) — gated"
+description = "Adjust stock by a signed delta (cycle count / correction). Overrides recorded inventory — gated."
 risk_class = "external_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "movements_for_part"
-description = "Recent stock movements for a part"
+description = "Recent stock movements for a part (newest first)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "reserve_stock"
-description = "Reserve available stock against a reference"
+description = "Reserve available stock against a reference (work order/asset). Increases reserved without removing on-hand."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "cancel_reservation"
-description = "Cancel a reservation, releasing reserved qty"
+description = "Cancel a reservation, releasing the reserved quantity."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_reservations"
-description = "List reservations by part/status"
+description = "List reservations, optionally by part (open_only defaults true)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "add_bom_line"
-description = "Add a BOM line (parent built from child); rejects cycles"
+description = "Add a bill-of-materials line: parent is built from qty of child. Rejects self-reference and cycles."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "explode_bom"
-description = "Explode a BOM into total component quantities"
+description = "Explode a BOM into total component quantities (recursive), scaled by a multiplier."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "where_used"
-description = "Assemblies that consume a given part"
+description = "Where-used: parent assemblies that consume a given part."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "add_supersession"
-description = "Record one part superseding another"
+description = "Record that one part supersedes another (marks the old part superseded)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "resolve_supersession"
-description = "Resolve supersession chain to current replacement"
+description = "Resolve a part's supersession chain to its current active replacement."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "reorder_suggestions"
-description = "Stock at/below reorder point with suggested order qty"
+description = "Reorder suggestions: stock at/below reorder point with suggested order qty. Powers the Parts Inventory Optimizer."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "record_usage"
-description = "Record a usage/consumption event for forecasting"
+description = "Record a usage/consumption event for a part (feeds demand forecasting)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "forecast_demand"
-description = "Usage-based demand forecast + reorder point + stockout risk"
+description = "Demand forecast from usage history: avg daily usage, projected demand, recommended reorder point, days of cover, and stockout risk vs lead time. Powers the Predictive (Fleet) Maintenance agents."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "audit_log"
-description = "Recent stock/operations audit-trail entries"
+description = "Recent stock/operations audit-trail entries (most recent first)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
